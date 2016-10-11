@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Instagram</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<header>
+    <ul>
+      <li><img src="<%= asset_path "camera.png" %>"></li>
+      <li><img src="<%= asset_path "instagram.png" %>"></li>
+    </ul>
+  </header>
+
+<body>
+  <%= yield %>
+
+  </body>
+  </html>
