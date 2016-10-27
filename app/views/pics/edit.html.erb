@@ -14,8 +14,20 @@
 
 
 
-<%= f.label :title %>
-<%= f.text_field :title %>
+
+<div class="field">
+
+   <%= f.label :image %><br>
+   <%= f.file_field :image %>
+   <%= f.hidden_field :image_cache %>
+ </div>
+
+<% if @pic.image? %>
+  <div class="thumbnail">
+    <%= image_tag @pic.image.url %>
+  </div>
+<% end %><br>
+
 
 <%= f.submit %>
 <% end %>

@@ -1,4 +1,5 @@
 class PicsController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     @pic = Pic.new
@@ -11,9 +12,11 @@ class PicsController < ApplicationController
   def create
     @pic = Pic.new(pic_params)
     @pics = Pic.all
+    @pic.user_id = current_user.id
     if @pic.save
     redirect_to pics_path , notice: "写真を投稿しました!"
   else
+
    render action: 'index'
   end
 end
@@ -40,7 +43,8 @@ end
 
   private
   def pic_params
-    params.require(:pic).permit(:title)
+    params.require(:pic).permit(:title,:image, :image_cache, :remove_image)
   end
+
 
 end

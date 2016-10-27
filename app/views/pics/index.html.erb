@@ -1,6 +1,8 @@
 
+<div id="page-top-btn" class="page-top-btn">
+    <p><a class="move-page-top" id="move-page-top">▲</a></p>
+</div>
 
-<p><%= notice %></p>
 
 <%= form_for(@pic) do |f| %>
 <% if @pic.errors.any? %>
@@ -15,18 +17,36 @@
   </div>
 <% end %>
 
-
-
-
-<%= f.label :title %>
-<%= f.text_field :title %>
-
-<%= f.submit %>
+<div class="container">
+  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+   <%= f.label :image %>
+   <%= f.file_field :image %>
+   <%= f.hidden_field :image_cache %>
+<%= f.submit '投稿',class: 'btn btn-prymary btn-block' %>
 <% end %>
 
+</div>
+</div>
+
+
 <% @pics.each do |pic| %>
-<p>タイトル:<%= pic.title %></p>
-<%= link_to "編集する", edit_pic_path(pic.id) %>
-<%= link_to "削除する", pic_path(pic.id), method: :delete, data: { confirm: '本当に削除してよろしいですか？'}  %>
+<div class="container">
+  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+
+ <div class="row">
+<% if pic.image? %>
+    <div class="thumbnail">
+      <%= image_tag pic.image.url %>
+    </div>
+  <% end %>
+
+<%= link_to "編集する", edit_pic_path(pic.id),class: 'btn btn-default btn-sm btn-success' %>
+<%= link_to "削除する", pic_path(pic.id), method: :delete, data: { confirm: '本当に削除してよろしいですか？'},class: 'btn btn-default btn-sm btn-danger'  %>
+</div>
+</div>
+</div>
+
+
+
 
 <% end %>
