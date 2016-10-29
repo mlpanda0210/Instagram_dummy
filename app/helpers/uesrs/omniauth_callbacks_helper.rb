@@ -1,0 +1,2 @@
+module Uesrs::OmniauthCallbacksHelper
+end
