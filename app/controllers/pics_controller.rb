@@ -4,6 +4,7 @@ class PicsController < ApplicationController
   def index
     @pic = Pic.new
     @pics= Pic.all
+    @users=User.all
   end
 
   def new
@@ -13,6 +14,7 @@ class PicsController < ApplicationController
     @pic = Pic.new(pic_params)
     @pics = Pic.all
     @pic.user_id = current_user.id
+
     if @pic.save
     redirect_to pics_path , notice: "写真を投稿しました!"
     NoticeMailer.sendmail_pic(@pic).deliver
@@ -44,7 +46,7 @@ end
 
   private
   def pic_params
-    params.require(:pic).permit(:title,:image, :image_cache, :remove_image)
+    params.require(:pic).permit(:content,:image, :image_cache, :remove_image)
   end
 
 

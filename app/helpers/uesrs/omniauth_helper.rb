@@ -1,2 +1,0 @@
-module Uesrs::OmniauthHelper
-end

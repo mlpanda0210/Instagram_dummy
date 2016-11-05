@@ -3,10 +3,17 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
+         has_many :pics
+         mount_uploader :avatar, AvatarUploader
 
-         has_many :pic
-
-
+         def update_with_password(params, *options)
+           if provider.blank?
+             super
+           else
+             params.delete :current_password
+             update_without_password(params, *options)
+           end
+         end
 
 def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
   user = User.find_by(provider: auth.provider, uid: auth.uid)

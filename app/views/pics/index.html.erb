@@ -3,50 +3,43 @@
     <p><a class="move-page-top" id="move-page-top">▲</a></p>
 </div>
 
-
-<%= form_for(@pic) do |f| %>
-<% if @pic.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= @pic.errors.count %>件のエラーがあります。</h2>
-
-    <ul>
-    <% @pic.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <div class="container">
   <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-   <%= f.label :image %>
+
+<%= form_for(@pic) do |f| %>
+<%= f.error_messages! %>
+
+
+   <%= f.label "写真を投稿する" %>
    <%= f.file_field :image %>
    <%= f.hidden_field :image_cache %>
+   <br>
+  <%= f.text_area :content, class: 'form-control' ,placeholder: '内容を入力'%>
+
+
 <%= f.submit '投稿',class: 'btn btn-prymary btn-block' %>
 <% end %>
 
 </div>
 </div>
 
-
 <% @pics.each do |pic| %>
-<div class="container">
-  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-
- <div class="row">
+  <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+<div class="row">
+<div class="thumbnail">
+  <%= image_tag(pic.user.image_url) %>
+<font size=1><i>投稿者：<%= pic.user.name%></i></font>
 <% if pic.image? %>
-    <div class="thumbnail">
-      <%= image_tag pic.image.url %>
-    </div>
+ <%= link_to image_tag(pic.image.url) , edit_pic_path(pic.id)%>
   <% end %>
+<p><%= pic.content %><p>
+<% if current_user.id == pic.user.id%>
+  <%= link_to "編集", edit_pic_path(pic.id),class: 'btn btn-default btn-sm btn-success' %>
+  <%= link_to "削除", pic_path(pic.id), method: :delete, data: { confirm: '本当に削除してよろしいですか？'},class: 'btn btn-default btn-sm btn-danger'  %>
+  <% end %>
+</div>
 
-<%= link_to "編集する", edit_pic_path(pic.id),class: 'btn btn-default btn-sm btn-success' %>
-<%= link_to "削除する", pic_path(pic.id), method: :delete, data: { confirm: '本当に削除してよろしいですか？'},class: 'btn btn-default btn-sm btn-danger'  %>
+
 </div>
 </div>
-</div>
-
-
-
-
 <% end %>

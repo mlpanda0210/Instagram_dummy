@@ -12,8 +12,11 @@
 <header>
     <ul>
       <p class="flash"><%= notice %><%= alert %></p>
-      <img src="<%= asset_path "camera.png" %>">
-      <img src="<%= asset_path "instagram.png" %>">
+      <img>
+      <%= link_to image_tag('camera.png'), pics_path%>
+      <%= link_to image_tag('instagram.png'), pics_path%>
+      </img>
+
    </ul>
 
 
@@ -26,7 +29,6 @@
       <% end %>
 
     </header>
-
 
 
 <body>

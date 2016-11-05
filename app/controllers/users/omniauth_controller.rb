@@ -1,2 +1,2 @@
-class Uesrs::OmniauthController < ApplicationController
+class Users::OmniauthController < Devise::Controller
 end
