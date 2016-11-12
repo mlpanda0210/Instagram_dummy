@@ -1,9 +1,13 @@
+
+<div class="container">
+  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+
 <%= form_for(@pic) do |f| %>
 <%= f.error_messages! %>
 
 <div class="field">
 
-   <%= f.label :image %><br>
+   <%= f.label "写真を編集する" %><br>
    <%= f.file_field :image %>
    <%= f.hidden_field :image_cache %>
  </div>
@@ -14,8 +18,11 @@
   </div>
 <% end %><br>
 
+<%= f.text_area :content, class: 'form-control' ,placeholder: '内容を入力'%>
 
-<%= f.submit %>
+<%= f.submit'更新する' ,class: 'btn btn-default btn-sm btn-success' %>
 <% end %>
 
 <%= link_to '戻る', :back %>
+</div>
+</div>

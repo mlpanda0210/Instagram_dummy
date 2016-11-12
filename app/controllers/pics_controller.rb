@@ -3,8 +3,9 @@ class PicsController < ApplicationController
 
   def index
     @pic = Pic.new
-    @pics= Pic.all
+    @pics= Pic.all.order("id DESC")
     @users=User.all
+
   end
 
   def new
