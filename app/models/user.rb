@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
+
          has_many :pics
          mount_uploader :avatar, AvatarUploader
 
@@ -15,10 +16,10 @@ class User < ActiveRecord::Base
            end
          end
 
-def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
- user = User.find_by(email: auth.info.email)
+   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.find_by(email: auth.info.email)
 
-  unless user
+    unless user
     user = User.new(
         name:     auth.extra.raw_info.name,
         provider: auth.provider,
@@ -29,14 +30,14 @@ def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     )
     user.skip_confirmation!
     user.save(validate: false)
+     end
+     user
   end
-  user
-end
 
-def self.find_for_twitter_oauth(auth, signed_in_resource = nil)
-    user = User.find_by(provider: auth.provider, uid: auth.uid)
+  def self.find_for_twitter_oauth(auth, signed_in_resource = nil)
+      user = User.find_by(provider: auth.provider, uid: auth.uid)
 
-    unless user
+      unless user
       user = User.new(
           name:     auth.info.nickname,
           image_url: auth.info.image,
@@ -44,14 +45,14 @@ def self.find_for_twitter_oauth(auth, signed_in_resource = nil)
           uid:      auth.uid,
           email:    auth.info.email ||= "#{auth.uid}-#{auth.provider}@example.com",
           password: Devise.friendly_token[0, 20]
-      )
-      user.skip_confirmation!
-      user.save
+        )
+        user.skip_confirmation!
+        user.save
+      end
+      user
     end
-    user
-  end
 
- def self.create_unique_string
-     SecureRandom.uuid
-   end
- end
+   def self.create_unique_string
+       SecureRandom.uuid
+  end
+end
