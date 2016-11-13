@@ -1,68 +1,67 @@
 <div class="container">
   <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
 
-<h2>アカウントを編集する</h2>
-<br>
-<br>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_messages! %>
-
-
-<i>プロフィール画像</i>
-  <div class="field">
-
-     <%= profile_img(@user) if profile_img(@user) %>
-     <%= f.file_field :avatar %>
-     <%= f.hidden_field :avatar_cache %>
-   </div>
-
-   <br>
-   <br>
-  <div class="field">
-    <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "メールアドレス" %>
-  </div>
-
+  <h2>アカウントを編集する</h2>
+  <br>
   <br>
 
-  <div class="field">
-    <%= f.text_field :name, class: "form-control", placeholder: "名前" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+     <%= f.error_messages! %>
 
-<% if @user.provider.blank? %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+     <i>プロフィール画像</i>
+     <div class="field">
+
+       <%= profile_img(@user) if profile_img(@user) %>
+       <%= f.file_field :avatar %>
+       <%= f.hidden_field :avatar_cache %>
+    </div>
+
+     <br>
+     <br>
+
+    <div class="field">
+       <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "メールアドレス" %>
+    </div>
+
+    <br>
+
+    <div class="field">
+      <%= f.text_field :name, class: "form-control", placeholder: "名前" %>
+    </div>
+
+    <% if @user.provider.blank? %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
 
-  <div class="field">
-    <%= f.password_field :password, autocomplete: "off" ,class: "form-control", placeholder: "新しいパスワード" %>
-    </div>
+     <div class="field">
+       <%= f.password_field :password, autocomplete: "off" ,class: "form-control", placeholder: "新しいパスワード" %>
+     </div>
 
-  <div class="field">
-    <%= f.password_field :password_confirmation, autocomplete: "off" ,class: "form-control", placeholder: "新しいパスワード確認"%>
-    </div>
+     <div class="field">
+       <%= f.password_field :password_confirmation, autocomplete: "off" ,class: "form-control", placeholder: "新しいパスワード確認"%>
+     </div>
 
-  <div class="field">
-    <%= f.password_field :current_password, autocomplete: "off",class: "form-control", placeholder: "現在のパスワード"%>
-    </div>
+     <div class="field">
+       <%= f.password_field :current_password, autocomplete: "off",class: "form-control", placeholder: "現在のパスワード"%>
+     </div>
 
-<% end %>
+    <% end %>
 
+      <div><%= f.submit "変更する", class: "btn btn-primary btn-block"  %></div>
 
+   <% end %>
 
-<div><%= f.submit "変更する", class: "btn btn-primary btn-block"  %></div>
+    <br>
 
-     <% end %>
+    <h2>アカウントを削除する</h2>
+    <%= button_to "アカウントを削除する" ,registration_path(resource_name),
+    data: { confirm: "本当に削除しますか？" }, method: :delete, class: "btn btn-danger btn-block"  %>
 
-<br>
+    <%= link_to "戻る", :back %>
 
-<h2>アカウントを削除する</h2>
-<%= button_to "アカウントを削除する" ,registration_path(resource_name),
-data: { confirm: "本当に削除しますか？" }, method: :delete, class: "btn btn-danger btn-block"  %>
-
-<%= link_to "戻る", :back %>
-
-</div>
+  </div>
 </div>

@@ -50,7 +50,8 @@ def self.find_for_twitter_oauth(auth, signed_in_resource = nil)
     end
     user
   end
-  def self.create_unique_string
+
+ def self.create_unique_string
      SecureRandom.uuid
    end
  end

@@ -3,9 +3,8 @@ class PicsController < ApplicationController
 
   def index
     @pic = Pic.new
-    @pics= Pic.all.order("id DESC")
+    @pics= Pic.all.all.order("id DESC")
     @users=User.all
-
   end
 
   def new
@@ -15,14 +14,15 @@ class PicsController < ApplicationController
     @pic = Pic.new(pic_params)
     @pics = Pic.all
     @pic.user_id = current_user.id
-    if @pic.save
-    redirect_to pics_path , notice: "写真を投稿しました!"
-    NoticeMailer.sendmail_pic(@pic).deliver
-  else
 
-   render action: 'index'
+    if @pic.save
+      redirect_to pics_path , notice: "写真を投稿しました!"
+      NoticeMailer.sendmail_pic(@pic).deliver
+    else
+
+      render action: 'index'
+    end
   end
-end
 
   def edit
     @pic = Pic.find(params[:id])
@@ -31,10 +31,10 @@ end
   def update
     @pic = Pic.find(params[:id])
     if @pic.update(pic_params)
-    redirect_to pics_path , notice: "写真を更新しました!"
-  else
-   render action: 'edit'
-  end
+      redirect_to pics_path , notice: "写真を更新しました!"
+    else
+      render action: 'edit'
+    end
   end
 
   def destroy
@@ -48,6 +48,4 @@ end
   def pic_params
     params.require(:pic).permit(:content,:image, :image_cache, :remove_image)
   end
-
-
 end
