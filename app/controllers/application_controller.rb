@@ -14,8 +14,6 @@ end
     PERMISSIBLE_ATTRIBUTES = %i(name avatar avatar_cache)
 
 
-
-
   protected
       #deviseのストロングパラメーターにカラム追加するメソッドを定義
   def configure_permitted_parameters
