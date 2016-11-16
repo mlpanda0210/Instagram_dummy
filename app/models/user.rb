@@ -8,8 +8,6 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  has_many :blogs , dependent: :destroy
-  has_many :comments , dependent: :destroy
 
 
   def update_with_password(params, *options)
